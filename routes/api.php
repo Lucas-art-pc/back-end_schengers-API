@@ -1,0 +1,22 @@
+<?php
+
+use App\Http\Controllers\Api\Auth\LoginStudentController;
+use App\Http\Controllers\Api\Auth\LoginTeacherController;
+use App\Http\Controllers\Api\Auth\RegisterTeacherController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\RegisterStudentController;
+
+Route::prefix('/auth')->group(function () {
+    Route::prefix('/user')->group(function () {
+        Route::post('/', RegisterStudentController::class);
+        Route::post('/login', LoginStudentController::class);
+    });
+
+    Route::prefix('/teacher')->group(function () {
+        Route::post('/', RegisterTeacherController::class);
+        Route::post('/login', LoginTeacherController::class);
+    });
+});
+
+
+
