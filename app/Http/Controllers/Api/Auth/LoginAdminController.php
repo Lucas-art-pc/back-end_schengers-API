@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
-
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 
-class LoginStudentController extends Controller
+class LoginAdminController extends Controller
 {
     //
+
     public function __invoke(LoginRequest $request)
     {
-
         $credentials = $request->validated();
-        $user = User::where('email', $credentials['email'])
+
+
+        $user = Teacher::where('email', $credentials['email'])
             ->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
@@ -24,8 +25,15 @@ class LoginStudentController extends Controller
             ], 401);
         }
 
+        if ($user->role != 'admin') {
+            return response()->json([
+               'message' => 'Você não é autorizado a acessar este recurso.',
+               'code' => 401
+            ]);
+        }
 
-        $token = $user->createToken('student-token')->plainTextToken;
+
+        $token = $user->createToken('teacher-token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
@@ -35,9 +43,9 @@ class LoginStudentController extends Controller
                 'email' => $user->email,
             ]
         ])->cookie(
-            'student_token',   // nome do cookie
+            'teacher_token',
             $token,
-            60 * 48,           // 2 dias
+            60 * 24,
             '/',
             null,
             true,              // Secure (HTTPS)
