@@ -28,7 +28,7 @@ class LoginTeacherController extends Controller
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'student' => [
+            'teacher' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,

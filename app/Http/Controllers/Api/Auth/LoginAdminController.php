@@ -37,7 +37,7 @@ class LoginAdminController extends Controller
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'student' => [
+            'admin' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,

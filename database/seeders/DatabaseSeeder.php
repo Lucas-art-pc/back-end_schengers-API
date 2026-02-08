@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PlanSeeder::class,
+            Persons::class,
+            AreasSeeder::class,
         ]);
+
+
 
 
 

@@ -20,7 +20,6 @@ Route::prefix('/auth')->group(function () {
     });
 
     Route::prefix('admin')->group(function () {
-
         Route::post('/login', LoginAdminController::class);
 
         Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
