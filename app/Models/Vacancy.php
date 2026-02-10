@@ -23,8 +23,11 @@ class Vacancy extends Model
         'requirements_vacancy',
         'tasks_vacancy',
         'slug_vacancy',
+        'status_vacancy',
         'start_date_vacancy',
     ];
+
+    public $timestamps = false;
 
     public function area(){
         return $this->belongsTo(Area::class, 'fk_id_area');
@@ -37,8 +40,8 @@ class Vacancy extends Model
                 $model->public_id = (string) Str::uuid();
             }
 
-            if (!$model->slug) {
-                $model->slug = Str::slug($model->title_vacancy);
+            if (!$model->slug_vacancy) {
+                $model->slug_vacancy = Str::slug($model->title_vacancy);
             }
         });
     }

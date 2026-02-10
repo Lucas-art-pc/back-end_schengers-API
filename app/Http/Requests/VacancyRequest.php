@@ -11,7 +11,8 @@ class VacancyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()?->role === 'admin';
+        return true;
+        // return $this->user()?->role === 'admin';
     }
 
     /**
@@ -27,6 +28,7 @@ class VacancyRequest extends FormRequest
             'description_vacancy' => 'string|required',
             'requirements_vacancy' => 'string|required',
             'tasks_vacancy' => 'string|required',
+            'status_vacancy' => 'boolean|required',
             'start_date_vacancy' => 'date|required',
         ];
     }

@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id('id_vacancy');
             $table->foreignId('fk_id_area')->constrained('tb_areas')->restrictOnDelete()->cascadeOnUpdate();
             $table->uuid('public_id');
+            $table->string('slug_vacancy')->after('public_id');
+            $table->boolean('status_vacancy')->after('slug_vacancy');
             $table->string('title_vacancy');
             $table->text('description_vacancy');
             $table->text('requirements_vacancy');
             $table->text('tasks_vacancy');
-            $table->string('slug_vacancy');
             $table->date('start_date_vacancy');
         });
     }
