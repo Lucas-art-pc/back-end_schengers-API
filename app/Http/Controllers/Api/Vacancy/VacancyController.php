@@ -123,10 +123,30 @@ class VacancyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $public_id)
     {
-        //
+        try{
+
+
+            $data = $request->all();
+
+            $vacancy = Vacancy::where('public_id', $public_id)->firstOrFail();
+
+            $vacancy->update($data);
+
+            return response()->json([
+                'message' => 'Vaga atualizada com sucesso!',
+                'data' => $vacancy
+            ], 200);
+        }catch(\Exception $e){
+            return response()->json([
+                'error' => $e->getMessage(),
+                'message' => "Erro ao atualizar vaga!",
+
+            ]);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

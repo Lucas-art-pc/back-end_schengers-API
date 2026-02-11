@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginTeacherController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterAdminController;
 use App\Http\Controllers\Api\Auth\RegisterTeacherController;
+use App\Http\Controllers\Api\Teacher\CurriculumController;
 use App\Http\Controllers\Api\Vacancy\VacancyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\RegisterStudentController;
@@ -35,14 +36,27 @@ Route::prefix('/auth')->group(function () {
 });
 
 Route::prefix('/vacancy')->group(function () {
-    Route::post('/', [VacancyController::class, 'store'])->middleware(['auth:sanctum', 'role:admin']);
+
     Route::get('/', [VacancyController::class, 'index']);
-    Route::get('/adminVacancies', [VacancyController::class, 'adminIndex'])
-        ->middleware(['auth:sanctum', 'role:admin']);
+
+    Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+        Route::post('/', [VacancyController::class, 'store']);
+        Route::get('/adminVacancies', [VacancyController::class, 'adminIndex']);
+        Route::delete('/{public_id}', [VacancyController::class, 'destroy']);
+        Route::patch('/{public_id}', [VacancyController::class, 'update']);
+    });
+
+
     Route::get('/{slug_vacancy}/{public_id}', [VacancyController::class, 'show'])
         ->middleware('auth:sanctum');
+});
 
-    Route::delete('/{public_id}', [VacancyController::class, 'destroy'])->middleware(['auth:sanctum', 'role:admin']);
+Route::prefix('/curriculum')->group(function () {
+    Route::post(
+        '/vacancies/{vacancy}/',
+        [CurriculumController::class, 'store']
+    )->middleware('auth:sanctum');
+
 });
 
 

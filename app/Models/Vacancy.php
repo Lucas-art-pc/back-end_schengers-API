@@ -35,16 +35,19 @@ class Vacancy extends Model
 
     protected static function booted()
     {
-        static::creating(function ($model) {
+        static::saving(function ($model) {
+
             if (!$model->public_id) {
                 $model->public_id = (string) Str::uuid();
             }
 
-            if (!$model->slug_vacancy) {
+            if ($model->isDirty('title_vacancy')) {
                 $model->slug_vacancy = Str::slug($model->title_vacancy);
             }
         });
     }
+
+
 
     public function getRouteKeyName(): string
     {

@@ -13,9 +13,9 @@ class Teacher extends Model
 
     protected $table = 'tb_teacher';
     protected $fillable = [
+        'id',
         'name',
         'email',
-        'phone_number',
         'role',
         'status',
         'apresentation',

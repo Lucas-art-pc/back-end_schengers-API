@@ -26,8 +26,8 @@ return new class extends Migration
                 ->cascadeOnUpdate();
 
 
-            $table->string('full_name');
-            $table->string('email')->unique();
+            $table->string('name');
+            $table->string('email');
             $table->string('phone');
             $table->string('linkedin')->nullable();
             $table->string('portfolio')->nullable();
