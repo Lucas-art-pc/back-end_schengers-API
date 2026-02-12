@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('requirements_vacancy');
             $table->text('tasks_vacancy');
             $table->date('start_date_vacancy');
+            $table->timestamps();
         });
     }
 

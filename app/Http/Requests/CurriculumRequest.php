@@ -37,12 +37,7 @@ class CurriculumRequest extends FormRequest
 
             'personal_document' => 'required|string|max:255',
 
-            'professional_document' => 'required|file|mimes:pdf|max:5120', // 5MB
-
-            'status' => [
-                'sometimes',
-                Rule::in(['pending', 'approved', 'rejected']),
-            ],
+            'professional_document' => 'required|string|max:5120', // 5MB
         ];
     }
 

@@ -33,6 +33,12 @@ class Vacancy extends Model
         return $this->belongsTo(Area::class, 'fk_id_area');
     }
 
+    public function curriculums()
+    {
+        return $this->hasMany(Curriculum::class, 'fk_id_vacancy', 'id_vacancy');
+    }
+
+
     protected static function booted()
     {
         static::saving(function ($model) {
@@ -47,10 +53,9 @@ class Vacancy extends Model
         });
     }
 
-
-
     public function getRouteKeyName(): string
     {
         return 'public_id';
     }
+
 }

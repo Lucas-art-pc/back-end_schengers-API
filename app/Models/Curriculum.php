@@ -27,7 +27,7 @@ class Curriculum extends Model
         'professional_experience',
         'skills',
         'personal_document',
-        'professional_experience',
+        'professional_document',
         'status'
     ];
 

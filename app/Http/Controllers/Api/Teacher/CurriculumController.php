@@ -18,23 +18,59 @@ class CurriculumController extends Controller
         //
     }
 
+    public function indexByVacancy($slug_vacancy)
+    {
+        $vacancy = Vacancy::where('slug_vacancy', $slug_vacancy)
+            ->firstOrFail();
+
+        $curriculums = $vacancy->curriculums()
+            ->latest()
+            ->paginate(5);
+
+        return response()->json([
+            'vacancy' => $vacancy->title_vacancy,
+            'total' => $curriculums->total(), // total real
+            'curriculums' => $curriculums->items(), // só os registros
+            'pagination' => [
+                'current_page' => $curriculums->currentPage(),
+                'last_page' => $curriculums->lastPage(),
+                'per_page' => $curriculums->perPage(),
+            ]
+        ]);
+    }
+
+
+
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(CurriculumRequest $request, Vacancy $vacancy)
     {
-        $teacher = auth()->user()->teacher;
+        $teacher = auth()->user();
+
+        if ($teacher->role !== 'teacher') {
+            return response()->json([
+                'message' => 'Usuário não possui perfil de professor.'
+            ], 403);
+        }
+
 
         $data = $request->validated();
 
         $data['fk_id_teacher'] = $teacher->id;
         $data['fk_id_vacancy'] = $vacancy->id_vacancy;
+        $data['status'] = 'pending';
 
-        /*if ($request->hasFile('professional_document')) {
+        if ($request->hasFile('professional_document')) {
             $data['professional_document'] =
                 $request->file('professional_document')
                     ->store('curriculums', 'public');
-        }*/
+        } else {
+            // permite teste com texto
+            $data['professional_document'] = $request->professional_document;
+        }
+
 
         $curriculum = Curriculum::create($data);
 
@@ -43,6 +79,7 @@ class CurriculumController extends Controller
             'data' => $curriculum,
         ], 201);
     }
+
     /**
      * Display the specified resource.
      */

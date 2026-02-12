@@ -57,7 +57,17 @@ Route::prefix('/curriculum')->group(function () {
         [CurriculumController::class, 'store']
     )->middleware('auth:sanctum');
 
+    Route::middleware(['auth:sanctum', 'role:admin'])
+        ->get('/vacancies/{slug_vacancy}',
+            [CurriculumController::class, 'indexByVacancy']);
+
+
+
+
 });
+
+
+
 
 
 
