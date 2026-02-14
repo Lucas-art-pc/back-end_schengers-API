@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('email');
+            $table->uuid('public_id');
             $table->string('phone');
             $table->string('linkedin')->nullable();
             $table->string('portfolio')->nullable();

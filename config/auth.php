@@ -39,7 +39,12 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ]
+        ],
+
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
     ],
 
     /*
@@ -66,7 +71,7 @@ return [
         ],
         'teachers' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Teacher::class),
+            'model' =>  App\Models\Teacher::class
         ]
 
         // 'users' => [

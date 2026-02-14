@@ -103,14 +103,6 @@ class VacancyController extends Controller
                 ], 404);
             }
 
-
-            if (!auth()->check()) {
-                return response()->json([
-                    'message' => 'Não autenticado'
-                ], 401);
-            }
-
-
             return response()->json(new VacancyResource($vacancy));
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CurriculumRequest;
+use App\Http\Resources\CurriculumResource;
 use App\Models\Curriculum;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
@@ -27,16 +28,7 @@ class CurriculumController extends Controller
             ->latest()
             ->paginate(5);
 
-        return response()->json([
-            'vacancy' => $vacancy->title_vacancy,
-            'total' => $curriculums->total(), // total real
-            'curriculums' => $curriculums->items(), // só os registros
-            'pagination' => [
-                'current_page' => $curriculums->currentPage(),
-                'last_page' => $curriculums->lastPage(),
-                'per_page' => $curriculums->perPage(),
-            ]
-        ]);
+        return response()->json(CurriculumResource::collection($curriculums), 200);
     }
 
 
@@ -83,9 +75,18 @@ class CurriculumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $public_id)
     {
-        //
+        $curriculum = Curriculum::where('public_id', $public_id)->first();
+
+        if (!$curriculum) {
+            return response()->json([
+                'error' => 'Currículo não encontrado.',
+            ]);
+        }
+
+        return response()->json(new CurriculumResource($curriculum), 200);
+
     }
 
     /**

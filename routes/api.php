@@ -1,43 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\LoginAdminController;
-use App\Http\Controllers\Api\Auth\LoginStudentController;
-use App\Http\Controllers\Api\Auth\LoginTeacherController;
-use App\Http\Controllers\Api\Auth\LogoutController;
-use App\Http\Controllers\Api\Auth\RegisterAdminController;
-use App\Http\Controllers\Api\Auth\RegisterTeacherController;
 use App\Http\Controllers\Api\Teacher\CurriculumController;
 use App\Http\Controllers\Api\Vacancy\VacancyController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Auth\RegisterStudentController;
 
-Route::prefix('/auth')->group(function () {
 
-    Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
 
-    Route::prefix('/user')->group(function () {
-        Route::post('/', RegisterStudentController::class);
-        Route::post('/login', LoginStudentController::class);
-    });
-
-    Route::prefix('/teacher')->group(function () {
-        Route::post('/', RegisterTeacherController::class);
-        Route::post('/login', LoginTeacherController::class);
-    });
-
-    Route::prefix('admin')->group(function () {
-        Route::post('/login', LoginAdminController::class);
-
-        Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-            Route::post('/', RegisterAdminController::class);
-        });
-    });
-
-});
 
 Route::prefix('/vacancy')->group(function () {
 
     Route::get('/', [VacancyController::class, 'index']);
+    Route::middleware('auth:sanctum,teacher')->get('/{public_id}/{slug}', [VacancyController::class, 'show']);
+
 
     Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
         Route::post('/', [VacancyController::class, 'store']);
@@ -47,8 +21,6 @@ Route::prefix('/vacancy')->group(function () {
     });
 
 
-    Route::get('/{slug_vacancy}/{public_id}', [VacancyController::class, 'show'])
-        ->middleware('auth:sanctum');
 });
 
 Route::prefix('/curriculum')->group(function () {
@@ -60,6 +32,10 @@ Route::prefix('/curriculum')->group(function () {
     Route::middleware(['auth:sanctum', 'role:admin'])
         ->get('/vacancies/{slug_vacancy}',
             [CurriculumController::class, 'indexByVacancy']);
+
+    Route::middleware(['auth:sanctum', 'role:admin'])
+        ->get('/{public_id}',
+        [CurriculumController::class, 'show']);
 
 
 

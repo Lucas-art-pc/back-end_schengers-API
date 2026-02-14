@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Curriculum extends Model
 {
@@ -17,6 +18,7 @@ class Curriculum extends Model
         'fk_id_vacancy',
         'name',
         'email',
+        'public_id',
         'phone',
         'linkedin',
         'portfolio',
@@ -30,6 +32,16 @@ class Curriculum extends Model
         'professional_document',
         'status'
     ];
+
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+
+            if (!$model->public_id) {
+                $model->public_id = (string) Str::uuid();
+            }
+        });
+    }
 
     public function teacher()
     {
