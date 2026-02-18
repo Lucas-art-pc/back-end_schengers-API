@@ -52,4 +52,10 @@ class Curriculum extends Model
     {
         return $this->belongsTo(Vacancy::class, 'fk_id_vacancy');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'public_id';
+    }
+
 }

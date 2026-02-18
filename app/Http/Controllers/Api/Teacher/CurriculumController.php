@@ -39,18 +39,12 @@ class CurriculumController extends Controller
      */
     public function store(CurriculumRequest $request, Vacancy $vacancy)
     {
-        $teacher = auth()->user();
 
-        if ($teacher->role !== 'teacher') {
-            return response()->json([
-                'message' => 'Usuário não possui perfil de professor.'
-            ], 403);
-        }
 
 
         $data = $request->validated();
 
-        $data['fk_id_teacher'] = $teacher->id;
+        $data['fk_id_teacher'] = 1;
         $data['fk_id_vacancy'] = $vacancy->id_vacancy;
         $data['status'] = 'pending';
 

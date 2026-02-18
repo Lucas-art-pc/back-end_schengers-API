@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\LoginAdminController;
 use App\Http\Controllers\Api\Auth\LoginStudentController;
+use App\Http\Controllers\Api\Auth\LoginTeacherAuthorizedController;
 use App\Http\Controllers\Api\Auth\LoginTeacherController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterAdminController;
@@ -22,6 +23,7 @@ Route::prefix('/auth')->group(function () {
     Route::prefix('/teacher')->group(function () {
         Route::post('/', RegisterTeacherController::class);
         Route::post('/login', LoginTeacherController::class);
+        Route::post('/loginTeacherAuthorized', LoginTeacherAuthorizedController::class);
     });
 
     Route::prefix('admin')->group(function () {
