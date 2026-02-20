@@ -48,5 +48,15 @@ class Persons extends Seeder
             'apresentation' => 'Usuário interessado em cursos de tecnologia e programação.',
             'password' => Hash::make('senha1234'),
         ]);
+
+        Teacher::updateOrCreate([
+            'id' => 3,
+            'name' => 'Lucas Bosso',
+            'email' => 'lmbosso2008@gmail.com',
+            'role' => 'teacher',
+            'status' => 'approved',
+            'apresentation' => 'Usuário interessado em cursos de tecnologia e programação.',
+            'password' => Hash::make('senha1234'),
+        ]);
     }
 }

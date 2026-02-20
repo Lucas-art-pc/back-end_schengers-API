@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             Persons::class,
             AreasSeeder::class,
             VacancySeeder::class,
+            CourseSeeder::class,
         ]);
 
 

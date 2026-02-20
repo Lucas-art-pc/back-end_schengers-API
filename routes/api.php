@@ -48,8 +48,10 @@ Route::prefix('/curriculum')->group(function () {
 });
 
 
-Route::prefix('/course')->group(function () {
-    Route::get('/coursesFreeAndUser', [CourseController::class, 'indexFreeAndUser']);
+Route::prefix('course')->group(function () {
+    Route::post('/', [CourseController::class, 'store']);
+    Route::get('/', [CourseController::class, 'index']);
+    Route::delete('/{public_id}', [CourseController::class, 'destroy']);
 });
 
 

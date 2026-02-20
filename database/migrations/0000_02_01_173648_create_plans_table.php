@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_plans', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->boolean('has_access_paid_courses');
             $table->string('slug')->unique();
             $table->decimal('price', 8, 2)->default(0);
             $table->boolean('is_paid')->default(false);

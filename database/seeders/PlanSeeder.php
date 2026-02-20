@@ -13,6 +13,7 @@ class PlanSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'free',
+                'has_access_paid_courses' => false,
                 'slug' => 'free',
             ],
             [
@@ -26,6 +27,7 @@ class PlanSeeder extends Seeder
                 'id' => 2,
                 'name' => 'premium',
                 'slug' => 'premium',
+                'has_access_paid_courses' => true,
             ],
             [
                 'price' => 49.90,
