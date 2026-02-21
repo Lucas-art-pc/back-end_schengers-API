@@ -29,7 +29,8 @@ class RegisterAdminController extends Controller
 
         return response()->json([
             'admin' => $admin,
-            'message' => 'Cadastrado com sucesso!'
+            'message' => 'Cadastrado com sucesso!',
+            'code' => 201
         ]);
 
         }catch (\Exception $exception){

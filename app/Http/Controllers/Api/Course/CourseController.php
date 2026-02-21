@@ -25,6 +25,17 @@ class CourseController extends Controller
         return ResourceCourses::collection($courses);
     }
 
+    public function teacherCourses()
+    {
+        $teacherLogin = auth()->user();
+
+        $courses = Course::with('area')
+            ->where('fk_id_teacher', $teacherLogin->id)
+            ->get();
+
+        return ResourceCourses::collection($courses);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,10 +75,29 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, string $public_id)
+{
+    try{
+
+
+        $data = $request->all();
+
+        $course = Course::where('public_id', $public_id)->firstOrFail();
+
+        $course->update($data);
+
+        return response()->json([
+            'message' => 'Curso atualizada com sucesso!',
+            'data' => $course
+        ], 200);
+    }catch(\Exception $e){
+        return response()->json([
+            'error' => $e->getMessage(),
+            'message' => "Erro ao atualizar curso!",
+
+        ]);
     }
+}
 
     /**
      * Remove the specified resource from storage.

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 
 class LoginTeacherController extends Controller
 {
@@ -24,7 +23,8 @@ class LoginTeacherController extends Controller
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'teacher' => Auth::guard('teacher')->user()
+            'teacher' => Auth::guard('teacher')->user(),
+            'code' => 200
         ]);
     }
 }

@@ -39,7 +39,8 @@ class LoginTeacherAuthorizedController extends Controller
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'teacher' => Auth::guard('teacher')->user()
+            'teacher' => Auth::guard('teacher')->user(),
+            'code' => 200
         ]);
     }
 

@@ -12,6 +12,7 @@ class ResourceCourses extends JsonResource
         return [
             'title_course'   => $this->title_course,
             'slug_course'    => $this->slug_course,
+            'public_id'      => $this->public_id,
             'duration_course'=> $this->duration_course,
             'is_paid'        => $this->is_paid,
             'active_course'  => $this->active_course,

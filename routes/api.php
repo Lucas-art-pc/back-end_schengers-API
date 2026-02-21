@@ -51,7 +51,9 @@ Route::prefix('/curriculum')->group(function () {
 Route::prefix('course')->group(function () {
     Route::post('/', [CourseController::class, 'store']);
     Route::get('/', [CourseController::class, 'index']);
+    Route::get('/adminCourses', [CourseController::class, 'teacherCourses']);
     Route::delete('/{public_id}', [CourseController::class, 'destroy']);
+    Route::patch('/{public_id}', [CourseController::class, 'update']);
 });
 
 
