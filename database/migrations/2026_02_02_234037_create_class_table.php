@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('tb_class', function (Blueprint $table) {
             $table->id('id_class');
             $table->string('title_class');
+            $table->uuid('public_id');
+            $table->string('slug_class')->after('public_id');
             $table->text('description_class');
             $table->text('explication_class');
             $table->integer('duration_class');
-            $table->boolean('url_class');
+            $table->string('url_class');
             $table->foreignId('fk_id_course')
                 ->constrained('tb_courses', 'id_course')
                 ->cascadeOnDelete()

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AreasSeeder::class,
             VacancySeeder::class,
             CourseSeeder::class,
+            ClassCourseSeeder::class,
         ]);
 
 

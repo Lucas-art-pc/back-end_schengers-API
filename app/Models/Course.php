@@ -38,6 +38,24 @@ class Course extends Model
         return $this->belongsTo(Teacher::class, 'fk_id_teacher');
     }
 
+    public function classes()
+    {
+        return $this->hasMany(
+            ClassCourse::class,
+            'fk_id_course',
+            'id_course'
+        );
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(
+            ActivityCourse::class,
+            'fk_id_course',
+            'id_course'
+        );
+    }
+
     public function scopeVisibleTo($query, $user = null)
     {
         if (! $user?->plan?->has_access_paid_courses) {

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('tb_activity', function (Blueprint $table) {
             $table->id('id_activity');
             $table->string('title_activity');
+            $table->uuid('public_id');
+            $table->string('slug_class')->after('public_id');
             $table->text('description_activity');
             $table->text('question_activity');
-            $table->boolean('status_activity');
 
             $table->foreignId('fk_id_course')
                 ->constrained('tb_courses', 'id_course')

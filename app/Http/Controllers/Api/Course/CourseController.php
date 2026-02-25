@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Course;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Resources\ResourceCourses;
+use App\Http\Resources\ResourceCoursesShow;
 use App\Models\Area;
 use App\Models\Course;
 use App\Models\Vacancy;
@@ -67,9 +68,23 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $public_id)
     {
-        //
+        $course = Course::with('area', 'teacher')
+            ->where('public_id', $public_id)
+            ->first();
+
+        if (!$course) {
+            return response()->json([
+                'message' => 'Curso não encontrado.',
+                'status' => 404,
+            ], 404);
+        }
+
+        return response()->json([
+            'course' => new ResourceCoursesShow($course),
+            'status' => 200
+        ], 200);
     }
 
     /**
