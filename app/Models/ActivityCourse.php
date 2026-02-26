@@ -24,9 +24,9 @@ class ActivityCourse extends Model
 
     public $timestamps = true;
 
-    public function activities()
+    public function alternatives()
     {
-        return $this->belongsTo(Course::class, 'fk_id_course', 'id_course');
+        return $this->hasMany(AlternativeActivityCourse::class, 'fk_id_activity');
     }
 
     protected static function booted()
@@ -38,7 +38,7 @@ class ActivityCourse extends Model
             }
 
             if ($model->isDirty('title_activity')) {
-                $model->slug_vacancy = Str::slug($model->title_activity);
+                $model->slug_activity = Str::slug($model->title_activity);
             }
         });
     }

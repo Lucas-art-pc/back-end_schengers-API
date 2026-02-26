@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             VacancySeeder::class,
             CourseSeeder::class,
             ClassCourseSeeder::class,
+            ActivitySeeder::class,
+            AlternativeSeeder::class,
         ]);
 
 

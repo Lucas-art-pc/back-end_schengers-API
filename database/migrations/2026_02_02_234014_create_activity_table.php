@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_activity');
             $table->string('title_activity');
             $table->uuid('public_id');
-            $table->string('slug_class')->after('public_id');
+            $table->string('slug_activity')->after('public_id');
             $table->text('description_activity');
             $table->text('question_activity');
 
