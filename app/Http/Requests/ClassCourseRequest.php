@@ -22,7 +22,11 @@ class ClassCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title_class' => 'required',
+            'description_class' => 'required',
+            'explication_class' => 'required',
+            'duration_class' => 'required',
+            'url_class' => 'required'
         ];
     }
 }

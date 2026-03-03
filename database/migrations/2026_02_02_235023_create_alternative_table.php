@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title_alternative');
             $table->text('text_alternative');
             $table->boolean('correct_alternative');
-            $table->foreignId('fk_id_activity')->constrained('tb_activity', 'id_activity')->restrictOnDelete();
+            $table->foreignId('fk_id_activity')->constrained('tb_activity', 'id_activity')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

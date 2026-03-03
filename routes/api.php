@@ -61,8 +61,15 @@ Route::prefix('courses')->group(function () {
     Route::patch('/{public_id}', [CourseController::class, 'update']);
 
     Route::get('/{public_id}/classes', [ClassCourseController::class, 'index']);
+    Route::get('/{public_id}/classes/{public_id_class}', [ClassCourseController::class, 'show']);
+    Route::post('/{public_id}/classes', [ClassCourseController::class, 'store']);
+
     Route::get('/{public_id}/activities', [ActivityCourseController::class, 'index']);
     Route::post('/{public_id}/activities', [ActivityCourseController::class, 'store']);
+    Route::get('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'show']);
+    Route::patch('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'update']);
+    Route::delete('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'destroy']);
+
 });
 
 

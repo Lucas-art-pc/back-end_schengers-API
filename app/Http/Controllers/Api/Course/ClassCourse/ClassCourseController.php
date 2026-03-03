@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\Course\ClassCourse;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClassCourseRequest;
+use App\Models\ActivityCourse;
+use App\Models\AlternativeActivityCourse;
 use App\Models\ClassCourse;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -31,22 +34,42 @@ class ClassCourseController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(ClassCourseRequest $request, string $public_id)
     {
-        //
+        $course = Course::where('public_id', $public_id)->firstOrFail();
+
+        $classCourse = ClassCourse::create([
+            'title_class' => $request->title_class,
+            'description_class' => $request->description_class,
+            'explication_class' => $request->explication_class,
+            'duration_class' => $request->duration_class,
+            'url_class' => $request->url_class,
+            'fk_id_course' => $course->id_course,
+        ]);
+
+        return response()->json([
+            'message' => 'Aula cadastrada com sucesso.',
+            'class' => $classCourse,
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $public_id, string $public_id_class)
     {
-        //
-    }
+        $course = Course::where('public_id', $public_id)->firstOrFail();
 
+        $classCourse = ClassCourse::where('fk_id_course', $course->id_course)
+            ->where('public_id', $public_id_class)
+            ->firstOrFail();
+
+
+        return response()->json([
+            'classCourse' => $classCourse
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */
