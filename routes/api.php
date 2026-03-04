@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\DataStudents;
 use App\Http\Controllers\Api\Course\ActivityCourse\ActivityCourseController;
 use App\Http\Controllers\Api\Course\ClassCourse\ClassCourseController;
 use App\Http\Controllers\Api\Course\CourseController;
@@ -63,6 +64,8 @@ Route::prefix('courses')->group(function () {
     Route::get('/{public_id}/classes', [ClassCourseController::class, 'index']);
     Route::get('/{public_id}/classes/{public_id_class}', [ClassCourseController::class, 'show']);
     Route::post('/{public_id}/classes', [ClassCourseController::class, 'store']);
+    Route::patch('/{public_id}/classes/{public_id_class}', [ClassCourseController::class, 'update']);
+    Route::delete('/{public_id}/classes/{public_id_class}', [ClassCourseController::class, 'destroy']);
 
     Route::get('/{public_id}/activities', [ActivityCourseController::class, 'index']);
     Route::post('/{public_id}/activities', [ActivityCourseController::class, 'store']);
@@ -70,6 +73,11 @@ Route::prefix('courses')->group(function () {
     Route::patch('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'update']);
     Route::delete('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'destroy']);
 
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/countStudents', [DataStudents::class, 'countStudents']);
+    Route::get('/listStudents', [DataStudents::class, 'indexStudents']);
 });
 
 

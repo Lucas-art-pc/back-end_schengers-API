@@ -73,16 +73,48 @@ class ClassCourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $public_id, string $public_id_class)
     {
-        //
+        $course = Course::where('public_id', $public_id)->firstOrFail();
+        $classCourse = ClassCourse::where('fk_id_course', $course->id_course)
+            ->where('public_id', $public_id_class)
+            ->first();
+        if (!$classCourse) {
+            return response()->json([
+                'message' => 'Esta aula não está disponível.',
+                'code' => 404,
+            ]);
+        }
+        $classCourse->update(
+            $request->only([
+                'title_class',
+                'description_class',
+                'explication_class',
+                'duration_class',
+                'url_class'
+            ])
+        );
+        return response()->json([
+            'message' => 'Aula atualizada com sucesso.',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(string $public_id, string $public_id_class){
+        $course = Course::where('public_id', $public_id)
+            ->firstOrFail();
+
+        $activity = ClassCourse::where('fk_id_course', $course->id_course)
+            ->where('public_id', $public_id_class)
+            ->firstOrFail();
+
+        $activity->delete();
+
+        return response()->json([
+            'message' => 'Aula apagada com sucesso.',
+            'code' => 200
+        ]);
     }
 }
