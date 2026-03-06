@@ -24,7 +24,6 @@ class Persons extends Seeder
             'phone_number' => '123456789',
             'date_of_birthday' => '2008-07-17',
             'apresentation' => 'Usuário interessado em cursos de tecnologia e programação.',
-            'fk_id_plan' => 2,
             'password' => Hash::make('senha1234'),
         ]);
 

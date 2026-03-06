@@ -26,7 +26,6 @@ class User extends Authenticatable
         'phone_number',
         'date_of_birthday',
         'apresentation',
-        'fk_id_plan',
         'password',
     ];
 
@@ -54,10 +53,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function plan()
-    {
-        return $this->belongsTo(Plans::class, 'fk_id_plan', 'id');
-    }
+
+
+
 
 
 }

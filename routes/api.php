@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\DataStudents;
+use App\Http\Controllers\Api\Admin\DataTeachers;
 use App\Http\Controllers\Api\Course\ActivityCourse\ActivityCourseController;
 use App\Http\Controllers\Api\Course\ClassCourse\ClassCourseController;
 use App\Http\Controllers\Api\Course\CourseController;
+use App\Http\Controllers\Api\MercadoPago\UpgradeOrder;
 use App\Http\Controllers\Api\Teacher\ActionCurriculumController;
 use App\Http\Controllers\Api\Teacher\CurriculumController;
 use App\Http\Controllers\Api\Vacancy\VacancyController;
@@ -78,8 +80,13 @@ Route::prefix('courses')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/countStudents', [DataStudents::class, 'countStudents']);
     Route::get('/listStudents', [DataStudents::class, 'indexStudents']);
+
+    Route::get('/countTeachers', [DataTeachers::class, 'countTeachers']);
+    Route::get('/listTeachers', [DataTeachers::class, 'indexTeachers']);
 });
 
+
+Route::post('/testeOrder', [UpgradeOrder::class, 'upgrade']);
 
 
 

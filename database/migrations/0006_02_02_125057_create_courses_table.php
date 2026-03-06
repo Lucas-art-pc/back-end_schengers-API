@@ -26,7 +26,6 @@ return new class extends Migration
             $table->text('description_course');
             $table->integer('duration_course');
             $table->boolean('active_course');
-            $table->boolean('is_paid');
             $table->timestamps();
         });
     }

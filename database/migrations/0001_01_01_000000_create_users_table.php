@@ -21,10 +21,6 @@ return new class extends Migration
 
             $table->text('apresentation');
 
-            $table->foreignId('fk_id_plan')
-                ->constrained('tb_plans')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
 
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
