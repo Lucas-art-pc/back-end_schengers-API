@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->date('date_of_birthday');
-
-            $table->text('apresentation');
+            $table->bool('term_privacy');
 
 
             $table->string('password');
