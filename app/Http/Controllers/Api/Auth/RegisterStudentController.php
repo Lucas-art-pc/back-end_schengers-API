@@ -17,7 +17,6 @@ class RegisterStudentController extends Controller
         try {
             $data = $request->validated();
 
-            $plan = Plans::where('slug', '=', $data['slug_plan'])->first();
 
             $user = User::create([
                 'name' => $data['name'],
@@ -25,7 +24,6 @@ class RegisterStudentController extends Controller
                 'phone_number' => $data['phone_number'],
                 'date_of_birthday' => $data['date_of_birthday'],
                 'apresentation' => $data['apresentation'],
-                'fk_id_plan' => $plan->id,
                 'password' => Hash::make($data['password']),
             ]);
 

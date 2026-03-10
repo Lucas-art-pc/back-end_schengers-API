@@ -38,7 +38,6 @@ class ActivityCourseController extends Controller
     public function store(ActivityCourseRequest $request, string $public_id)
     {
 
-
         $course = Course::where('public_id', $public_id)->firstOrFail();
 
         DB::transaction(function () use ($request, $course) {

@@ -11,23 +11,28 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginStudentController extends Controller
 {
-    //
+
     public function __invoke(LoginRequest $request)
     {
         $credentials = $request->validated();
 
-        if (! Auth::guard('web')->attempt($credentials)) {
+        if (!Auth::guard('web')->attempt($credentials)) {
             return response()->json([
                 'message' => 'Credenciais inválidas.'
             ], 401);
         }
 
-        $request->session()->regenerate();
+        $teacher = Auth::guard('web')->user();
+
+
+        $token = $teacher->createToken('auth_token_user')->plainTextToken;
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'teacher' => Auth::guard('web')->user(),
-            'code' => 200
-        ]);
+            'token' => $token,
+            'status' => 200
+        ], 200);
     }
+    //
+
 }

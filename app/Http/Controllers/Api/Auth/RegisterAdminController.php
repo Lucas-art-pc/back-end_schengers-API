@@ -20,7 +20,6 @@ class RegisterAdminController extends Controller
         $admin = Teacher::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone_number' => $data['phone_number'],
             'role' => 'admin',
             'status' => 'approved',
             'apresentation' => $data['apresentation'],

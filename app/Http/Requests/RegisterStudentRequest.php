@@ -27,7 +27,6 @@ class RegisterStudentRequest extends FormRequest
                 'phone_number' => ['required', 'string', 'max:20', 'unique:users,phone_number'],
                 'date_of_birthday' => ['required', 'date', 'before:today'],
                 'apresentation' => ['required', 'string', 'min:3', 'max:150'],
-                'slug_plan' => ['required', 'exists:tb_plans,slug'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ];
 

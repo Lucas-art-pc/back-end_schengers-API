@@ -28,16 +28,12 @@ class RegisterTeacherController extends Controller
                 return Teacher::create([
                     'name'         => $data['name'],
                     'email'        => $data['email'],
-                    'phone_number' => $data['phone_number'],
                     'role'         => 'teacher',
                     'status'       => 'pending',
                     'apresentation'=> $data['apresentation'],
                     'password'     => Hash::make($data['password']),
                 ]);
             });
-
-            Auth::login($teacher);
-            $request->session()->regenerate();
 
             return response()->json([
                 'teacher' => $teacher,

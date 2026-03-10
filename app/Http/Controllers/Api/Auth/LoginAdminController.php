@@ -16,30 +16,38 @@ class LoginAdminController extends Controller
     {
         $credentials = $request->validated();
 
+        $user = Teacher::where('email', $credentials['email'])->first();
 
-        $user = Teacher::where('email', $credentials['email'])
-            ->first();
-
-        if ($user->role != 'admin') {
-            return response()->json([
-                'message' => 'Você não é autorizado a acessar este recurso.',
-                'code' => 401
-            ]);
-        }
-
-        if (! Auth::guard('teacher')->attempt($credentials)) {
+        if (!$user) {
             return response()->json([
                 'message' => 'Credenciais inválidas.'
             ], 401);
         }
 
-        $request->session()->regenerate();
+        if ($user->role !== 'admin') {
+            return response()->json([
+                'message' => 'Você não é autorizado a acessar este recurso.',
+                'status' => 403
+            ], 403);
+        }
+
+        if (!Auth::guard('teacher')->attempt($credentials)) {
+            return response()->json([
+                'message' => 'Credenciais inválidas.'
+            ], 401);
+        }
+
+        $teacher = Auth::guard('teacher')->user();
+
+        // gerar token
+        $token = $teacher->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'teacher' => Auth::guard('teacher')->user(),
-            'code' => 200
-        ]);
+            'teacher' => $teacher,
+            'token' => $token,
+            'status' => 200
+        ], 200);
     }
 
 }

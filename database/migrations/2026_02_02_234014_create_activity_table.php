@@ -17,7 +17,9 @@ return new class extends Migration
             $table->uuid('public_id');
             $table->string('slug_activity')->after('public_id');
             $table->text('description_activity');
-            $table->text('question_activity');
+            $table->text('question_activity')->nullable();
+
+            $table->string("file_activity")->nullable();
 
             $table->foreignId('fk_id_course')
                 ->constrained('tb_courses', 'id_course')

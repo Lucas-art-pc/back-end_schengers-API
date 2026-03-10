@@ -13,18 +13,22 @@ class LoginTeacherController extends Controller
     {
         $credentials = $request->validated();
 
-        if (! Auth::guard('teacher')->attempt($credentials)) {
+        if (!Auth::guard('teacher')->attempt($credentials)) {
             return response()->json([
                 'message' => 'Credenciais inválidas.'
             ], 401);
         }
 
-        $request->session()->regenerate();
+        $teacher = Auth::guard('teacher')->user();
+
+        // gerar token
+        $token = $teacher->createToken('auth_token_teacher')->plainTextToken;
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
-            'teacher' => Auth::guard('teacher')->user(),
-            'code' => 200
-        ]);
+            'teacher' => $teacher,
+            'token' => $token,
+            'status' => 200
+        ], 200);
     }
 }

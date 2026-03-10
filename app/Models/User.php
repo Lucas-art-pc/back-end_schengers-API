@@ -54,6 +54,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class,
+            'tb_rel_student_course', 'fk_id_student', 'fk_id_course');
+    }
+
 
 
 

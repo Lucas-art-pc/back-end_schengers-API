@@ -23,6 +23,8 @@ return new class extends Migration
             $table->enum('status', ['approved', 'pending', 'rejected'])
                 ->default('pending');
 
+
+
             $table->text('apresentation')->nullable();
 
             $table->string('password');

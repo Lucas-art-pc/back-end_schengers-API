@@ -26,6 +26,7 @@ class Curriculum extends Model
         'institution',
         'course',
         'graduation_year',
+        'url_image',
         'professional_experience',
         'skills',
         'personal_document',

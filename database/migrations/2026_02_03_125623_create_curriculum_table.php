@@ -34,10 +34,12 @@ return new class extends Migration
             $table->string('portfolio')->nullable();
 
 
-            $table->enum('education_level',['graduacao', 'pos-graduacao','mestrado', 'doutorado']); // Ex: Graduação, Pós, Mestrado
+            $table->enum('education_level',['graduacao', 'pos-graduacao','mestrado', 'doutorado']);
             $table->string('institution');
             $table->string('course');
             $table->year('graduation_year')->nullable();
+
+            $table->string('url_image')->nullable();
 
 
             $table->text('professional_experience')->nullable();
@@ -46,8 +48,8 @@ return new class extends Migration
             $table->text('skills');
 
 
-            $table->string('personal_document');      // CPF ou RG (ou hash)
-            $table->string('professional_document');  // PDF do currículo ou certificado
+            $table->string('personal_document');
+            $table->string('professional_document');
 
 
             $table->enum('status', ['pending', 'approved', 'rejected'])
