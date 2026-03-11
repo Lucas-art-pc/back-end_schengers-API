@@ -7,6 +7,7 @@ use App\Http\Requests\ActivityCourseRequest;
 use App\Models\ActivityCourse;
 use App\Models\AlternativeActivityCourse;
 use App\Models\Course;
+use App\Models\StudentAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,10 +60,11 @@ class ActivityCourseController extends Controller
         ], 201);
     }
 
-    public function show(string $public_id, string $public_id_activity)
+    public function show(Request $request, string $public_id_course, string $public_id_activity)
     {
+        $user = $request->user();
 
-        $course = Course::where('public_id', $public_id)->firstOrFail();
+        $course = Course::where('public_id', $public_id_course)->firstOrFail();
 
         $activity = ActivityCourse::where('fk_id_course', $course->id_course)
             ->where('public_id', $public_id_activity)
@@ -73,9 +75,14 @@ class ActivityCourseController extends Controller
             $activity->id_activity
         )->get();
 
+        $answer = StudentAnswer::where('fk_id_student', $user->id)
+            ->where('fk_id_activity', $activity->id_activity)
+            ->first();
+
         return response()->json([
             'activity' => $activity,
-            'alternatives' => $alternatives
+            'alternatives' => $alternatives,
+            'answer' => $answer
         ]);
     }
 

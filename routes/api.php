@@ -92,7 +92,7 @@ Route::prefix('/curriculum')->group(function () {
 
 Route::prefix('courses')->group(function () {
 
-    Route::get('/activities/{public_id_activity}/answer', [AnswersCourseController::class, 'getAnswer'])->middleware('auth:sanctum');
+
     Route::post('/activities/answer', [AnswersCourseController::class, 'answer'])->middleware('auth:sanctum');
 
     Route::get('/coursesPerStudent', [EnrollmentController::class, 'coursesPerStudent'])->middleware('auth:sanctum');
@@ -114,7 +114,7 @@ Route::prefix('courses')->group(function () {
 
     Route::get('/{public_id}/activities', [ActivityCourseController::class, 'index']);
     Route::post('/{public_id}/activities', [ActivityCourseController::class, 'store']);
-    Route::get('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'show']);
+    Route::get('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'show'])->middleware('auth:sanctum');
     Route::patch('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'update']);
     Route::delete('/{public_id}/activities/{public_id_activity}', [ActivityCourseController::class, 'destroy']);
 
